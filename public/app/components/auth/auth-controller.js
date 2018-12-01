@@ -12,6 +12,9 @@ function drawLoggedOn() {
     </form>
     <p onclick="app.controllers.authController.showRegister()">Click to Register</p>
     `
+  document.getElementById('log').innerHTML = `
+  <button class="btn btn-danger btn-sm" onclick="app.controllers.authContoller.showRegister()">Register</button>
+  <i class="fas fa-times" onclick="app.controllers.authContoller.mainBar()"></i>`
 }
 
 
@@ -23,20 +26,30 @@ function drawRegistraionFrom() {
       <input type="text" name="email" placeholder="email" required>
       <input type="text" name="username" placeholder="username" required>
       <input type="password" name="password" placeholder="password" required>
-      <button type="submit">Register</button>
+      <button class="btn btn-danger btn-sm" type="submit">Register</button>
     </form>
     <p onclick="app.controllers.authController.showLogin()">Existing User?</p>
     `
+  document.getElementById('log').innerHTML = `
+  <button class="btn btn-secondary btn-sm" onclick="app.controllers.authContoller.showLogin()" style="height: 2rem">Login</button>
+  <i class="fas fa-times" onclick="app.controllers.authContoller.mainBar()"></i>`
 }
 
 //AFTER A USER IS LOGGED OUT
 function drawLoggedOut() {
   console.log('logged out');
-  document.getElementById('auth').innerHTML = `<button onclick="app.controllers.authController.logout()">logout</button>`
+  document.getElementById('log').innerHTML = `<button onclick="app.controllers.authController.logout()">logout</button>`
 }
 
 function drawFail(err) {
   throw new Error(err)
+}
+
+function drawMainBar() {
+  document.getElementById('auth').innerHTML = ''
+  document.getElementById('log').innerHTML = `
+  <button class="btn btn-secondary btn-sm" onclick="app.controllers.authContoller.showLogin()" style="height: 2rem">Login</button>
+        <button class="btn btn-danger btn-sm" onclick="app.controllers.authContoller.showRegister()">Register</button>`
 }
 
 export default class AuthController {
@@ -69,5 +82,8 @@ export default class AuthController {
   }
   showLogin() {
     drawLoggedOn()
+  }
+  mainBar() {
+    drawMainBar()
   }
 }
