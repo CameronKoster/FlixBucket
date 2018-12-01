@@ -25,14 +25,21 @@ export default class AuthService {
         console.error(err)
       })
   }
+  register(creds, draw) {
+    _auth.post("register", creds)
+      .then(res => {
+        _user = res.data
+        draw()
+      }).catch(err => {
+        console.error(err)
+      })
+  }
   authenticate(drawOnSuccess, drawOnFail) {
     _auth.get("authenticate")
       .then(res => {
         _user = res.data
         drawOnSuccess()
-      }).catch(err => {
-        drawOnFail()
-      })
+      }).catch(drawOnFail)
   }
   logout(draw) {
     _auth.delete("logout")
