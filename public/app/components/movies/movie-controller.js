@@ -19,7 +19,7 @@ function _drawMovie() {
     <div class="card-body">
     <h5 class="card-title">${movie.title}</h5>
     <p class="card-text">${movie.overview}</p>
-    <a href="#" class="btn btn-primary" onclick="app.controllers.movieController.seeReviews">See Reviews</a>
+    <button class="btn btn-primary" onclick="app.controllers.movieController._drawReview(${movie.id})">See Reviews</button>
     </div>
     </div>
     `
@@ -29,23 +29,6 @@ function _drawMovie() {
 
 }
 
-function _drawReviews(_reviews) {
-  let template = ''
-  _reviews.forEach(review => {
-    template += `
-    <div class="card" style="width: 18rem;">
-    <div class="card-body">
-    <h5 class="card-title">Review: ${review.content}</h5>
-    <h5 class="card-subtitle mb-2">Rating: ${review.rating}</h5>
-      <h6 class="card-subtitle mb-2 text-muted">Author:${review.userId}</h6>
-      <p class="card-text">comments: </p>
-    </div>
-  </div>
-    `
-  });
-
-  document.getElementById('reviews').innerHTML = template
-}
 
 //let movies = _mS.movies
 
@@ -55,6 +38,24 @@ export default class MovieController {
     _mS.getReviews(_drawMovie, handleError)
   }
 
+  _drawReview(movieId) {
+    let _reviews = _mS.reviews.filter(review => review.tmdbId == movieId)
+    let template = ''
+    _reviews.forEach(review => {
+      template += `
+    <div class="card" style="width: 18rem;">
+    <div class="card-body">
+    <h5 class="card-title">Review: ${review.content}</h5>
+    <h5 class="card-subtitle mb-2">Rating: ${review.rating}</h5>
+      <h6 class="card-subtitle mb-2 text-muted">Author:${review.userId}</h6>
+      <p class="card-text">comments: </p>
+    </div>
+  </div>
+    `
+    });
+
+    document.getElementById('reviews').innerHTML = template
+  }
   searchMovie(event) {
     event.preventDefault()
     //_mS.getMovies(event.target.search.value, _drawMovie, handleError)

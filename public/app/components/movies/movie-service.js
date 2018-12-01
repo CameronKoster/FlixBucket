@@ -50,6 +50,9 @@ export default class MovieService {
   get movies() {
     return _movies
   }
+  get reviews() {
+    return _reviews
+  }
 
 }
 
