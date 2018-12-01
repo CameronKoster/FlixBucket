@@ -1,7 +1,7 @@
 let mongoose = require('mongoose')
 let bcrypt = require('bcryptjs')
 let Schema = mongoose.Schema
-const SALT = 15
+const SALT = 10
 let name = "User"
 
 //user schema

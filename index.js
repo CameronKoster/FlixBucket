@@ -30,11 +30,9 @@ server.use("*", (req, res, next) => {
 //^^ above always the same
 
 
-let movieRouter = require('./server/routes/movies')
 let reviewRouter = require('./server/routes/reviews')
 let commentRouter = require('./server/routes/comments')
 
-server.use('/api/movies', movieRouter)
 server.use('/api/reviews', reviewRouter)
 server.use('/api/comments', commentRouter)
 

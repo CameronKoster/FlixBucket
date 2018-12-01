@@ -7,7 +7,7 @@ let schema = new Schema({
   userId: { type: ObjectId, ref: "User", required: true },
   content: { type: String, required: true },
   rating: { type: Number, required: true },
-  movieId: { type: String, ref: "Movie", required: true },
+  tmdbId: { type: String, required: true },
 })
 
 

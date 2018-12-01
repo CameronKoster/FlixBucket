@@ -1,12 +1,29 @@
 let router = require('express').Router()
 let Reviews = require('../models/review')
 let Comments = require('../models/comment')
-let Movies = require('../models/movie')
-
 
 //get review and its comments
-router.get('/:movieId', (req, res, next) => {
-  Reviews.findById(req.params.movieId)
+router.get('/', (req, res, next) => {
+  Reviews.find({})
+    .then(reviews => {
+      let tmdbIds = []
+      let count = 0
+      reviews.forEach(review => {
+        if (!tmdbIds.includes(review.tmdbId) && count < 10) {
+          tmdbIds.push(review.tmdbId)
+        }
+      })
+      res.send({
+        tmdbIds, reviews
+      })
+
+    })
+    .catch(next)
+})
+
+//get review and its comments
+router.get('/:tmdbId', (req, res, next) => {
+  Reviews.findById(req.params.tmdbId)
     .then(review => {
       Comments.find({ reviewId: review._id })
         .then(comments => {
@@ -17,15 +34,10 @@ router.get('/:movieId', (req, res, next) => {
 })
 
 //post/create a new review
-router.post('/:movieId', (req, res, next) => {
+router.post('/', (req, res, next) => {
   req.body.userId = req.session.uid
   Reviews.create(req.body)
     .then(review => {
-      Movies.findOne({ _id: req.body.movieId })
-        .then(movie => {
-          movie.avgRating = req.body.avgRating
-          movie.save()
-        })
       res.send(review)
     })
     .catch(next)
