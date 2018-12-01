@@ -10,34 +10,42 @@
     crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
     crossorigin="anonymous">
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
   <div class="container-fluid">
-    <div class="row h-50">
-      <div class="col5 d-flex">
+    <div class="row">
+      <div class="col6 d-flex">
         <i onclick="//run func to return to home page" class="fas fa-film"></i>
         <h6>Flixbucket</h6>
       </div>
-      <div class="col4">
+      <div class="col3 ml-1">
         <form onsubmit="app.controllers.movieController.searchMovie(event)">
           <div class="input-group">
-            <input type="text" class="form-control" placeholder="Search Movie Name" name="search">
+            <input type="text" class="form-control" placeholder="Search Movie Name" name="search" style="height: 2rem">
             <div class="input-group-append">
-              <button class="btn btn-primary" type="submit">Find</button>
+              <button class="btn btn-primary btn-sm" type="submit">Find</button>
             </div>
           </div>
         </form>
       </div>
-      <div class="col3">
-        <button class="btn btn-secondary" type="submit">Login</button>
-        <button class="btn btn-danger" type="submit">Register</button>
+      <div class="col3 ml-1 justify-content: center">
+        <button class="btn btn-secondary btn-sm" type="submit" style="height: 2rem">Login</button>
+        <button class="btn btn-danger btn-sm" type="submit">Register</button>
       </div>
     </div>
   </div>
+
+
+
+
   <div class="container-fluid">
     <div class="row">
-      <div class="col10" id="homepage">
+      <div class="col10">
+        <div id="movieCard">
+
+        </div>
 
       </div>
       <div class="col2">
