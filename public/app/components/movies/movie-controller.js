@@ -4,14 +4,14 @@ let _mS = new MovieService()
 let _auth = {}
 
 function handleError(err) {
-  console.error("Sorry 0 results found")
+  console.error("Sorry 0 results found", err)
 }
 
 
-function _drawMovie(_movies) {
+function _drawMovie() {
+  let movies = _mS.movies
   let template = ''
-  console.log(_movies)
-  _movies.forEach(movie => {
+  movies.forEach(movie => {
     let imageUrl = "https://image.tmdb.org/t/p/w150_and_h150_bestv2" + movie.poster_path
     template += `
     <div class="card" style="width: 18rem;">
@@ -42,13 +42,13 @@ function _drawReviews(_reviews) {
 
 export default class MovieController {
   constructor(auth) {
-    auth = _auth
+    _auth = auth
     _mS.getReviews(_drawMovie, handleError)
   }
 
   searchMovie(event) {
     event.preventDefault()
-    _mS.getMovies(event.target.search.value, _drawMovie, handleError)
+    //_mS.getMovies(event.target.search.value, _drawMovie, handleError)
   }
   // getMovies() {
   //   _mS.getMovies(this._drawMovie, handleError)
