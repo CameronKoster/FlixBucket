@@ -21,7 +21,9 @@ function _drawMovie() {
     <p class="card-text">${movie.overview}</p>
     <button class="btn btn-primary" onclick="app.controllers.movieController._drawReview(${movie.id})">See Reviews</button>
     </div>
+    <div id="${movie.id}"></div>
     </div>
+    
     `
   })
   document.getElementById('movieCard').innerHTML = template
@@ -54,7 +56,7 @@ export default class MovieController {
     `
     });
 
-    document.getElementById('reviews').innerHTML = template
+    document.getElementById(`${movieId}`).innerHTML = template
   }
   searchMovie(event) {
     event.preventDefault()

@@ -4,6 +4,7 @@ let ObjectId = Schema.Types.ObjectId
 let name = "Review"
 
 let schema = new Schema({
+  username: { type: String, required: true },
   userId: { type: ObjectId, ref: "User", required: true },
   content: { type: String, required: true },
   rating: { type: Number, required: true },
