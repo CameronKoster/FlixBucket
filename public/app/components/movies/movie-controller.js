@@ -1,6 +1,7 @@
 import MovieService from "./movie-service.js"
 
 let _mS = new MovieService()
+let _auth = {}
 
 function handleError(err) {
   console.error("Sorry 0 results found")
@@ -40,7 +41,8 @@ function _drawReviews(_reviews) {
 //let movies = _mS.movies
 
 export default class MovieController {
-  constructor() {
+  constructor(auth) {
+    auth = _auth
     _mS.getReviews(_drawMovie, handleError)
   }
 

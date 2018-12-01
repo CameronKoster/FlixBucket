@@ -1,5 +1,4 @@
 import Movie from "./models/movie.js"
-import { callbackify } from "util";
 // @ts-ignore
 let _movieAPI = axios.create({
   baseURL: 'https://api.themoviedb.org/3/search',
