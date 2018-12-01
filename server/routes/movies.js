@@ -6,15 +6,22 @@ let Reviews = require('../models/review')
 router.get('/', (req, res, next) => {
   Movies.find({})
     .then(movies => {
-      res.send(movies)
+      let moviesHtoL =
+        movies.sort((a, b) => parseInt(b.avgRating) - parseInt(a.avgRating))
+      res.send(moviesHtoL)
     })
     .catch(next)
 })
 
 //get movie by id
 router.get('/:id', (req, res, next) => {
-  Movies.findById(req.params.id)
-    .then(movie => res.send(movie))
+  Movies.findOne({ _id: req.params.id })
+    .then(movie => {
+      Reviews.find({ movieId: req.params.id })
+        .then(reviews => {
+          res.send({ movie, reviews })
+        }).catch(next)
+    })
     .catch(next)
 })
 
