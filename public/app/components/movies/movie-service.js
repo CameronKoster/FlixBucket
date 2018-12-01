@@ -29,6 +29,9 @@ function getMovieById(id) {
       _movies.push(res.data)
     })
 }
+function handleError(err) {
+  throw new Error(err)
+}
 
 
 export default class MovieService {
@@ -45,6 +48,14 @@ export default class MovieService {
           handleError()
         }
       })
+  }
+  addReview(review, draw) {
+    _flixbucketdb.post("", review)
+      .then(res => {
+        _reviews.push(res.data)
+        draw(review.tmdbId)
+      })
+      .catch(handleError)
   }
 
   get movies() {
