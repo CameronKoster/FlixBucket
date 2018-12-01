@@ -1,13 +1,14 @@
 import Movie from "./models/movie.js"
+import { callbackify } from "util";
 // @ts-ignore
 let _movieAPI = axios.create({
   baseURL: 'https://api.themoviedb.org/3/search',
   timeout: 3000
 })
 
-let _apiKey = "api_key=1acfaa233b759fc415e78d406552edcd&query="
+let _apiKey = "api_key=1acfaa233b759fc415e78d406552edcd"
 let _movies = []
-
+let _reviews = []
 // @ts-ignore
 let _flixbucketdb = axios.create({
   baseURL: 'mongodb://moviewatcher1:moviewatcher1@ds119164.mlab.com:19164/flixbucketdb',
@@ -17,25 +18,34 @@ let _flixbucketdb = axios.create({
 
 export default class MovieService {
   contructor() {
-    console.log('movie service working')
+    // this.getMovies()
   }
-  getMovies(query, _drawMovie, handleError) {
-    _movieAPI.get("/movie?" + _apiKey + query)
+  getReviews(callback, handleError) {
+    _flixbucketdb.get('/')
       .then(res => {
-        let movies = res.data.results
-        _drawMovie(movies)
+        let _reviews = res.data
+        callback(_reviews)
       })
       .catch(err => {
-        console.log(err)
+        handleError()
       })
   }
-  // getOurMovie(title, _drawMovie, getMovies) {
-  //   _flixbucketdb.get(title)
-  //     .then(res => {
-  //       _movies = res.data.results
-  //       _drawMovie()
-  //     })
-  //     .catch(this.getMovies())
+
+  // get movies() {
+  //   return _movies
   // }
 
 }
+
+
+// getMovies(query, callback, handleError) {
+//   _movieAPI.get("&query=" + "/movie?" + _apiKey + query)
+//     .then(res => {
+//       console.log(res.data.results)
+//       let _movies = res.data.results
+//       callback(_movies)
+//     })
+//     .catch(err => {
+//       console.log(err)
+//     })
+// }
