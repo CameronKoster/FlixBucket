@@ -36,6 +36,7 @@ router.get('/:tmdbId', (req, res, next) => {
 //post/create a new review
 router.post('/', (req, res, next) => {
   req.body.userId = req.session.uid
+  req.body.username = req.session.username
   Reviews.create(req.body)
     .then(review => {
       res.send(review)
